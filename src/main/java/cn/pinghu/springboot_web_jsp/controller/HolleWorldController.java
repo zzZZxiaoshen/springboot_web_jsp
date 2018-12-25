@@ -1,6 +1,6 @@
 package cn.pinghu.springboot_web_jsp.controller;
 
-import cn.pinghu.springboot_web_jsp.bean.Department;
+import cn.pinghu.springboot_web_jsp.entity.Department;
 import cn.pinghu.springboot_web_jsp.mapper.DepartmentMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

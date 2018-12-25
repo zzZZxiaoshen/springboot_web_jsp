@@ -1,4 +1,4 @@
-package cn.pinghu.springboot_web_jsp.bean;
+package cn.pinghu.springboot_web_jsp.entity;
 
 public class Employee {
 

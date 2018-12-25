@@ -22,6 +22,7 @@ import java.util.Map;
 public class DuridConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
+
     @Bean
     public DataSource duridDataSource(){
         return new DruidDataSource();

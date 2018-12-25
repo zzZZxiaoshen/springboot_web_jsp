@@ -1,7 +1,7 @@
 package cn.pinghu.springboot_web_jsp.mapper;
 
 
-import cn.pinghu.springboot_web_jsp.bean.Department;
+import cn.pinghu.springboot_web_jsp.entity.Department;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
