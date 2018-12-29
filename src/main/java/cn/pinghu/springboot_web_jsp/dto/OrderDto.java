@@ -1,4 +1,4 @@
-package cn.pinghu.springboot_web_jsp.dto.response;
+package cn.pinghu.springboot_web_jsp.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;

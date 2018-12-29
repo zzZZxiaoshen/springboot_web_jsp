@@ -1,7 +1,8 @@
 package cn.pinghu.springboot_web_jsp.mapper;
 
 import cn.pinghu.springboot_web_jsp.domain.OrderDo;
-import cn.pinghu.springboot_web_jsp.dto.response.OrderQueryDto;
+import cn.pinghu.springboot_web_jsp.dto.OrderQueryDto;
+import cn.pinghu.springboot_web_jsp.entity.OrderConversionEntity;
 import cn.pinghu.springboot_web_jsp.entity.OrderEntity;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -33,4 +34,11 @@ public interface OrderMapper {
      * @param orderQuery
     */
     List<OrderDo> selectOrderList(OrderQueryDto orderQuery);
+
+    /**
+    * 批量更新线路
+    * @param collect 线路信息
+    * @return 用户信息
+    */
+    Integer updateOrderByOrderNo(List<OrderConversionEntity> collect);
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.pinghu.springboot_web_jsp.mapper.AuthorityMapper">
+    <!--auto generated Code-->
+    <resultMap id="BaseResultMap" type="cn.pinghu.springboot_web_jsp.domain.AuthorityDo">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="article" property="article" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <!--auto generated Code-->
+    <sql id="Base_Column_List">
+        id,
+        article,
+        url
+    </sql>
+
+    <!--auto generated Code-->
+    <insert id="insert" useGeneratedKeys="true" keyProperty="authority.id">
+        INSERT INTO authority (
+            id,
+            article,
+            url
+        ) VALUES (
+            #{authority.id,jdbcType=INTEGER},
+            #{authority.article,jdbcType=VARCHAR},
+            #{authority.url,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertSelective" useGeneratedKeys="true" keyProperty="authority.id">
+        INSERT INTO authority
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="authority.id!=null"> id,</if>
+            <if test="authority.article!=null"> article,</if>
+            <if test="authority.url!=null"> url,</if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="authority.id!=null">#{authority.id,jdbcType=INTEGER},
+            </if>
+            <if test="authority.article!=null">#{authority.article,jdbcType=VARCHAR},
+            </if>
+            <if test="authority.url!=null">#{authority.url,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO authority (
+            id,
+            article,
+            url
+        )VALUES
+        <foreach collection="authoritys" item="authority" index="index" separator=",">
+            (
+            #{authority.id,jdbcType=INTEGER},
+            #{authority.article,jdbcType=VARCHAR},
+            #{authority.url,jdbcType=VARCHAR}
+            )
+        </foreach>
+    </insert>
+
+    <!--auto generated Code-->
+    <update id="updateByPrimaryKeySelective">
+        UPDATE authority
+        <set>
+            <if test="authority.article != null"> article= #{authority.article,jdbcType=VARCHAR},</if>
+            <if test="authority.url != null"> url= #{authority.url,jdbcType=VARCHAR}</if>
+        </set>
+        WHERE id = #{authority.id,jdbcType=INTEGER}
+    </update>
+</mapper>
+

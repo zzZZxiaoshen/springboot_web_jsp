@@ -305,4 +305,18 @@
       GmtModified = #{gmtmodified,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=INTEGER}
   </update>
+
+    <update id="updateOrderByOrderNo">
+      UPDATE
+          `order`
+      SET
+        `RouteNo` =
+       <foreach collection="orderRoutes" item="item" separator=" " open="case OrderNo" close="end">
+           WHEN #{item.orderNo} THEN #{item.routeNo}
+        </foreach>
+           WHERE `OrderNo` IN
+      <foreach collection="orderRoutes" item="item" separator="," open="(" close=")">
+          #{item.orderNo}
+      </foreach>
+    </update>
 </mapper>

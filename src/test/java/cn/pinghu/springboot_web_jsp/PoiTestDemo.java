@@ -1,150 +1,215 @@
 package cn.pinghu.springboot_web_jsp;
 
-import cn.pinghu.springboot_web_jsp.entity.ExcelPropertyIndexModel;
-import cn.pinghu.springboot_web_jsp.entity.LoanInfo;
-import cn.pinghu.springboot_web_jsp.listener.ExcelListener;
-import com.alibaba.excel.ExcelReader;
-import com.alibaba.excel.ExcelWriter;
-import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.metadata.BaseRowModel;
-import com.alibaba.excel.metadata.Sheet;
-import com.alibaba.excel.support.ExcelTypeEnum;
-import org.apache.logging.log4j.core.util.datetime.FastDateFormat;
+
+import cn.afterturn.easypoi.entity.vo.NormalExcelConstants;
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ExportParams;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
+import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
+import cn.afterturn.easypoi.excel.entity.params.ExcelExportEntity;
+import cn.afterturn.easypoi.handler.inter.IExcelDataHandler;
+import cn.afterturn.easypoi.util.PoiPublicUtil;
+import cn.pinghu.springboot_web_jsp.entity.*;
+import com.google.common.collect.Maps;
+import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.assertj.core.util.Lists;
 import org.junit.Test;
 
+import javax.el.ImportHandler;
 import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
-import static org.apache.tomcat.util.file.ConfigFileLoader.getInputStream;
+import java.util.*;
 
 public class PoiTestDemo {
 
-
-    private static final FastDateFormat FORMAT = FastDateFormat.getInstance("yyyy-MM-dd");
-
-
     /**
-     * 无java模型直接把excel解析的每行结果以List返回 在ExcelListener获取解析结果
+     * 导出excel 一个对象
      */
     @Test
-    public void testExcel2003NoModel() throws IOException {
-        InputStream inputStream = getInputStream("C:\\Users\\lx\\Desktop\\loan1.xlsx");
-        try {
-            // 解析每行结果在listener中处理
-            ExcelListener listener = new ExcelListener();
+    public void test01() throws Exception {
+        ArrayList<StudentEntity> list = new ArrayList<>();
+        StudentEntity entity = new StudentEntity();
+        entity.setName("xiaoshen");
+        entity.setBirthday(new Date());
+        entity.setSex(1);
+        list.add(entity);
 
-            ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, listener);
-            excelReader.read();
-        } catch (Exception e) {
-
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("计算机一班学生", "学生"),
+                StudentEntity.class, list);
+        FileOutputStream out = new FileOutputStream("C:\\Users\\lx\\Desktop\\test.xls");
+        workbook.write(out);
+        out.close();
     }
 
     /**
-     * 有java模型映射
+     * 导出excel 一对多
      */
     @Test
-    public void testExcel2003WithReflectModel() throws IOException {
-        InputStream inputStream = getInputStream("C:\\Users\\lx\\Desktop\\loan1.xlsx");
-        try {
-            // 解析每行结果在listener中处理
-            AnalysisEventListener listener = new ExcelListener();
-            ExcelReader excelReader = new ExcelReader(inputStream, ExcelTypeEnum.XLSX, null, listener);
-            excelReader.read(new Sheet(0, 0, LoanInfo.class));
-        } catch (Exception e) {
+    public void test02() throws IOException {
+        List<CourseEntity> courseEntities = new ArrayList<>();
+        // 封装老师信息
+        TeacherEntity teacherEntity = new TeacherEntity();
+        teacherEntity.setName("xiaoshen");
+        // 封装学生信息
+        ArrayList<StudentEntity> stlist = new ArrayList<>();
+        StudentEntity entity = new StudentEntity();
+        entity.setName("xiaoshen");
+        entity.setBirthday(new Date());
+        entity.setSex(1);
+        stlist.add(entity);
+        stlist.add(entity);
 
-        } finally {
-            try {
-                inputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        // 封装课程信息
+        CourseEntity courseEntity = new CourseEntity();
+        courseEntity.setName("shuxue");
+        courseEntity.setMathTeacher(teacherEntity);
+        courseEntity.setStudents(stlist);
+        courseEntities.add(courseEntity);
 
+        Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("2412312", "测试", "测试"),
+                CourseEntity.class, courseEntities);
+
+        FileOutputStream out = new FileOutputStream("C:\\Users\\lx\\Desktop\\test.xls");
+        workbook.write(out);
+        out.close();
     }
 
     /**
-     * 生成Excel 无模型毎一行都是一个listString 无无表头
+     * 导出多张sheet
+     */
+    public void test03() {
+    }
+
+
+    /**
+     * map导入自由发挥
      */
     @Test
-    public void testCreatExcel() throws FileNotFoundException {
-        OutputStream out = new FileOutputStream("C:\\Users\\lx\\Desktop\\testCreatExcel.xlsx");
+    public void test04() {
         try {
-            ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX, false);
-            //写第一个sheet, sheet1  数据全是List<String> 无模型映射关系
-            Sheet sheet1 = new Sheet(0, 0);
-            sheet1.setSheetName("第一个sheet");
-            writer.write0(getListString(), sheet1);
-            writer.finish();
-        } catch (Exception e) {
+            List<ExcelExportEntity> entity = new ArrayList<ExcelExportEntity>();
+        //构造对象等同于@Excel
+            ExcelExportEntity excelentity = new ExcelExportEntity("姓名", "name");
+            excelentity.setNeedMerge(true);
+            entity.add(excelentity);
+            entity.add(new ExcelExportEntity("性别", "sex"));
+            excelentity = new ExcelExportEntity(null, "students");
+            List<ExcelExportEntity> temp = new ArrayList<ExcelExportEntity>();
+            temp.add(new ExcelExportEntity("姓名", "name"));
+            temp.add(new ExcelExportEntity("性别", "sex"));
+        //构造List等同于@ExcelCollection
+            excelentity.setList(temp);
+            entity.add(excelentity);
+            List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+        //把我们构造好的bean对象放到params就可以了
+            Workbook workbook = ExcelExportUtil.exportExcel(new ExportParams("测试", "测试"), entity,
+                    list);
+            FileOutputStream fos = new FileOutputStream("C:\\Users\\lx\\Desktop\\ExcelExportForMap.tt.xls");
+            workbook.write(fos);
+            fos.close();
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
     /**
-     * 生成Excel @ExcelProperty(value = “姓名”,index = 0) value是表头数据，默认会写在excel的表头位置，index代表第几列
+     * excel 导入
      */
     @Test
-    public void test1() throws FileNotFoundException {
-        createExcel();
+    public void test2() throws Exception {
+        FileInputStream fin = new FileInputStream("C:\\Users\\lx\\Desktop\\test.xls");
+        ImportParams params = new ImportParams();
+        params.setTitleRows(1);
+        long start = new Date().getTime();
+        List<StudentEntity> list = ExcelImportUtil.importExcel(
+                fin,
+                StudentEntity.class, params);
+        System.out.println(new Date().getTime() - start);
+        System.out.println(list.size());
+        System.out.println(ReflectionToStringBuilder.toString(list.get(0)));
     }
 
-    private void createExcel() throws FileNotFoundException {
-        OutputStream out = new FileOutputStream("C:\\Users\\lx\\Desktop\\testCreatExcel02.xlsx");
-        try {
-            ExcelWriter writer = new ExcelWriter(out, ExcelTypeEnum.XLSX);
-            //写第一个sheet, sheet1  数据全是List<String> 无模型映射关系
-            Sheet sheet1 = new Sheet(0, 0, ExcelPropertyIndexModel.class);
-            writer.write(getData(), sheet1);
-            writer.finish();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                out.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+    /**
+     * 如何自定义数据处理
+     */
+    @Test
+    public void bigDataExport() throws Exception {
+        List<MsgClient> list = new ArrayList<MsgClient>();
+        Workbook workbook = null;
+        Date start = new Date();
+        ExportParams params = new ExportParams("大数据测试", "测试");
+        for (int i = 0; i < 1000; i++) {  //一百万数据量
+            MsgClient client = new MsgClient();
+            client.setBirthday(new Date());
+            client.setClientname("小明" + i);
+            client.setClientphone("18797" + i);
+            client.setCreateby("JueYue");
+            client.setId("1" + i);
+            client.setRemark("测试" + i);
+            list.add(client);
+            if(list.size() == 10000){
+                workbook = ExcelExportUtil.exportBigExcel(params, MsgClient.class, list);
+                list.clear();
             }
         }
+        ExcelExportUtil.closeExportBigExcel();
+        System.out.println(new Date().getTime() - start.getTime());
+        File savefile = new File("D:/excel/");
+           if (!savefile.exists()) {
+               savefile.mkdirs();
+           }
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\lx\\Desktop\\ExcelExportBigData.bigDataExport.xlsx");
+        workbook.write(fos);
+        fos.close();
     }
 
-    private List<? extends BaseRowModel> getData() {
-        ArrayList<ExcelPropertyIndexModel> list = new ArrayList<>();
-        ExcelPropertyIndexModel model = new ExcelPropertyIndexModel();
-        model.setName("xiaoshen");
-        model.setAge("11");
-        model.setEmail("644921@qq");
-        model.setLast("aaaa");
-        // 封装毎一行数据
-        list.add(model);
-        return list;
+    /**
+    * 使用模板导出
+    */
+    @Test
+    public void fe_map() throws Exception {
+        TemplateExportParams params = new TemplateExportParams(
+                "C:\\Users\\lx\\Desktop\\沈凯的个人文件夹\\数据导入\\专项支出用款申请书_map.xls");
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("date", "2014-12-25");
+        map.put("money", 2000000.00);
+        map.put("upperMoney", "贰佰万");
+        map.put("company", "执笔潜行科技有限公司");
+        map.put("bureau", "财政局");
+        map.put("person", "JueYue");
+        map.put("phone", "1879740****");
+        List<Map<String, String>> listMap = new ArrayList<Map<String, String>>();
+        for (int i = 0; i < 4; i++) {
+            Map<String, String> lm = new HashMap<String, String>();
+            lm.put("id", i + 1 + "");
+            lm.put("zijin", i * 10000 + "");
+            lm.put("bianma", "A001");
+            lm.put("mingcheng", "设计");
+            lm.put("xiangmumingcheng", "EasyPoi " + i + "期");
+            lm.put("quancheng", "开源项目");
+            lm.put("sqje", i * 10000 + "");
+            lm.put("hdje", i * 10000 + "");
+
+            listMap.add(lm);
+        }
+        map.put("maplist", listMap);
+
+        exportExcel(params, map);
     }
 
-
-    private List<List<String>> getListString() {
-        // 整个sheet 的行数据
-        ArrayList<List<String>> list = new ArrayList<>();
-        ArrayList<String> listString = new ArrayList<>();
-        listString.add("11");
-        listString.add(FORMAT.format(new Date()));
-        // 封装一行数据
-        list.add(listString);
-        return list;
+    private void exportExcel(TemplateExportParams params, Map<String, Object> map) throws IOException {
+        Workbook workbook = ExcelExportUtil.exportExcel(params, map);
+        File savefile = new File("C:\\Users\\lx\\Desktop\\");
+        if (!savefile.exists()) {
+            savefile.mkdirs();
+        }
+        FileOutputStream fos = new FileOutputStream("C:\\Users\\lx\\Desktop\\test.xls");
+        workbook.write(fos);
+        fos.close();
     }
+
 
 }
-

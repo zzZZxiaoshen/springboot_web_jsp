@@ -1,4 +1,4 @@
-package cn.pinghu.springboot_web_jsp.dto.response;
+package cn.pinghu.springboot_web_jsp.dto;
 
 /**
  * 订单查询条件

@@ -11,4 +11,5 @@ public class BeanConfiguration {
     public Student student(){
         return new Student();
     }
+
 }
