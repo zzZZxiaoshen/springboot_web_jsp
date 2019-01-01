@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * durid数据库连接池配置类
  */
-@Configuration
+
 public class DuridConfig {
 
     @ConfigurationProperties(prefix = "spring.datasource")
