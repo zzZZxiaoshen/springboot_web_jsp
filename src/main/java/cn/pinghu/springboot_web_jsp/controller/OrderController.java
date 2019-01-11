@@ -40,6 +40,11 @@ public class OrderController extends BaseController {
     @Autowired
     private OrderService orderService;
 
+    @RequestMapping("/viwe/order")
+    public String viewOrder() {
+        return "table";
+    }
+
     /**
      * 显示订单列表
      */

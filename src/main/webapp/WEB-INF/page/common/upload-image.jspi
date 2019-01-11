@@ -1,0 +1,18 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<!-- 上传图片使用的 -->
+<div class="row">
+    <div class="col-xs-12">
+        <div class="form-inline">
+            <div class="col-xs-6">
+                <label class="store-img"><i style="color:red;">*</i>上传图片：</label>
+                <div id="images" style="padding-top:7px;width: 560px;"></div>
+                <div class="form-group">
+                    <label for="file" id="imageTitle" style="color:red;margin-bottom:5px;" class="title">*默认显示第一张图 建议尺寸:宽700px 高400px</label>
+                    <form class="image_container">
+                        <%@ include file="/WEB-INF/pages/common/click-upload-image.jspi"%>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

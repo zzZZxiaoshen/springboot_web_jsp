@@ -7,22 +7,32 @@ package cn.pinghu.springboot_web_jsp.entity;
  */
 public class OrderQueryEntity {
 
-    private Integer start;
-    private Integer end;
+    /**
+     * 开始索引
+     */
+    protected Integer start = 0;
+    /**
+     * 页大小
+     */
+    protected Integer limit = 10;
 
     public Integer getStart() {
         return start;
     }
 
     public void setStart(Integer start) {
-        this.start = start;
+        if (start != null && start > 0) {
+            this.start = start;
+        }
     }
 
-    public Integer getEnd() {
-        return end;
+    public Integer getLimit() {
+        return limit;
     }
 
-    public void setEnd(Integer end) {
-        this.end = end;
+    public void setLimit(Integer limit) {
+        if (limit != null && limit > 0) {
+            this.limit = limit;
+        }
     }
 }
