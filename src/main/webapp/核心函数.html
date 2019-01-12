@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $("#btn").click(function () {
+                console.log($(this).html());
+                console.log($("<input type=\"text\" name=\"msg2\"/><br/>").appendTo("div"));
+            });
+        });
+        var array = [23, 24, 25];
+        $.each(array, function (index, item) {
+            console.log("第" + index + "是：" + item);
+        });
+    </script>
+</head>
+<body>
+
+<div>
+    <button id="btn">测试</button>
+    <br/>
+
+    <input type="text" name="msg1"/><br/>
+    <input type="text" name="msg2"/><br/>
+</div>
+</body>
+
+</html>

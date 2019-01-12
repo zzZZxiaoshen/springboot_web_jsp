@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button>测试一</button>
+<button>测试二</button>
+<button id="btn3">测试三</button>
+<button>测试四</button>
+<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+<script type="text/javascript">
+    // 需求1. 统计一共有多少个按钮
+    var $btns = $("button");
+    console.log($btns.size());
+    // 需求2. 取出第2个button的文本
+    console.log($btns.get(1).innerHTML);
+    // 需求3. 输出所有button标签的文本
+    $btns.each(function (index,domEml) {
+        console.log(index, domEml.innerHTML);
+    })
+    // 需求4. 输出'测试三'按钮是所有按钮中的第几个
+    var $btn3 = $("#btn3");
+    console.log($btn3.index());
+</script>
+</body>
+</html>

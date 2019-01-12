@@ -132,10 +132,10 @@
 		</dependency>
 
 <!--安全-->
-		<dependency>
+	<!--	<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
+		</dependency>-->
 <!--日志-->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
