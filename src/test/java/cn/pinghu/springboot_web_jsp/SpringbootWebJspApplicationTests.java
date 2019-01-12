@@ -2,6 +2,7 @@ package cn.pinghu.springboot_web_jsp;
 
 import cn.pinghu.springboot_web_jsp.entity.Employee;
 import cn.pinghu.springboot_web_jsp.service.EmployeeService;
+import org.apache.http.HttpRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,8 @@ public class SpringbootWebJspApplicationTests {
 	private StringRedisTemplate stringRedisTemplate;
 	@Autowired
 	private RedisTemplate<Object, Employee> empRedisTemplate;
+	@Autowired
+	private HttpRequest request;
 
 	@Test
 	public void testRedisTemplate() {
@@ -59,6 +62,9 @@ public class SpringbootWebJspApplicationTests {
 		System.out.println(dataSource.getClass());
 		Connection connection = dataSource.getConnection();
 		System.out.println(connection);
+	}
+	@Test
+	public void rootPathTest() throws SQLException {
 	}
 
 

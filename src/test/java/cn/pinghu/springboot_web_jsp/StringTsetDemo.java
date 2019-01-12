@@ -18,4 +18,16 @@ public class StringTsetDemo {
         String name = str.substring(0, str.indexOf("|"));
         System.out.println(name);
     }
+
+    @Test
+    public void test03(){
+        int i=0;
+        if (i > 0) {
+            System.out.println("i大于0");
+        } else if (i < 0) {
+            System.out.println("i小于0");
+        } else {
+            System.out.println("i等于0");
+        }
+    }
 }

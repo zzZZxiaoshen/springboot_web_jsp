@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<input type="text" id="inp">
+<button id="btn">按钮</button>
+
+</body>
+    <script type="application/javascript">
+
+        var btn =document.getElementById("btn");
+        btn.onclick=function () {
+            var val=document.getElementById("inp");
+            var num = val.value;
+            console.log("主线程数据" + num);
+            var work = new Worker("worker.js");
+            work.postMessage(num);
+            onmessage=function (even) {
+                console.log("拿到分线程数据" + even.data);
+                alert(even.data);
+            }
+        }
+    </script>
+</html>

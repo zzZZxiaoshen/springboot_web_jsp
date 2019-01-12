@@ -2,7 +2,7 @@ package cn.pinghu.springboot_web_jsp;
 
 import cn.pinghu.springboot_web_jsp.entity.ExcelPropertyIndexModel;
 import cn.pinghu.springboot_web_jsp.entity.LoanInfo;
-import cn.pinghu.springboot_web_jsp.listener.ExcelListener;
+import cn.pinghu.springboot_web_jsp.freework.listener.ExcelListener;
 import com.alibaba.excel.ExcelReader;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.event.AnalysisEventListener;

@@ -1,0 +1,40 @@
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<script>
+    const rootPath = "${pageContext.request.contextPath}";
+</script>
+<!--顶部导航栏部分-->
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" title="logoTitle" href="#">Neo Yang</a>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">iOS</a></li>
+                <li><a href="#">SVN</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Java<b class="caret"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Java</a></li>
+                        <li><a href="#">C#</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">Python</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right " >
+                <li role="presentation">
+                    <a href="#" onclick=testUser()>当前用户：<span class="badge">TestUser</span></a>
+                </li>
+                <li>
+                    <a href="../login/logout">
+                        <span class="glyphicon glyphicon-lock"></span>退出登录</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
