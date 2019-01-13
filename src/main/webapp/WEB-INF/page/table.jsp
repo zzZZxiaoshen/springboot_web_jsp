@@ -6,12 +6,14 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <%@ include file="/WEB-INF/page/common/css.jspi" %>
-    <%--注意这是es6的语法在页面进行声明然后进行引用--%>
+    <script  src="${pageContext.request.contextPath}/static/js/plugins/laydate/laydate.js"></script>
+<%--注意这是es6的语法在页面进行声明然后进行引用--%>
     <script>
         const rootPath = "${pageContext.request.contextPath}";
     </script>
 </head>
 <body>
+<input placeholder="请输入日期" class="laydate-icon" onclick="laydate()">
     <table id="table" class="table table-hover table-bordered">
         <thead>
         <tr>
