@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.js"></script>
+    <script src="cookie.js"></script>
+
+</head>
+<body>
+<script>
+    window.onload = function () {
+        var date = new Date()
+        date.setDate(date.getDate() + 1);
+        // document.cookie = "name=xiaoshen;expires=" + date.toGMTString() + ";";
+        // document.cookie = "name=xiaoshen;path=/;domain=127.0.0.1;";
+        console.log(document.domain);
+        console.log(window.location.pathname);
+        var index = window.location.pathname.lastIndexOf("/");
+        console.log(index);
+        var currentPath = window.location.pathname.slice(0, index);
+        console.log(currentPath);
+        console.log("---------------------------");
+        $.addCookie("name", "xiaoshen111");
+        $.addCookie("age", "12");
+        console.log(document.cookie);
+        console.log($.getCookie("age"));
+        console.log($.max(1,2));
+
+
+    }
+
+
+</script>
+</body>
+</html>

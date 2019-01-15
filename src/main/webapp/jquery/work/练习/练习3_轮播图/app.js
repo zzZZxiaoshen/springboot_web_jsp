@@ -81,7 +81,6 @@ $(function () {
       return
     }
     moving = true // 标识正在翻页
-
     // 总的偏移量: offset
     var offset = 0
     // 计算offset
