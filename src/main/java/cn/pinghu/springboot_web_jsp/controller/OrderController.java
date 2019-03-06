@@ -78,7 +78,7 @@ public class OrderController extends BaseController {
     /**
      * 输出订单的excel easyPoI
      */
-    @ResponseBody
+   /* @ResponseBody
     @RequestMapping("/order/excel02")
     public void findOrderListExcel01(@ModelAttribute OrderQueryEntity orderQueryEntity, HttpServletResponse response) {
         ListResponse<OrderDto> orderResponse = orderService.findOrderList(BeanHelper.convertBean(orderQueryEntity, OrderQueryDto::new));
@@ -105,5 +105,6 @@ public class OrderController extends BaseController {
             e.printStackTrace();
         }
     }
+*/
 
 }

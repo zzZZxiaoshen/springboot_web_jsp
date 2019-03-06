@@ -30,4 +30,18 @@ public class StringTsetDemo {
             System.out.println("i等于0");
         }
     }
+
+    @Test
+    public void test05(){
+        long sum = (long) (100000 * 0.1);
+        long all = sum * 30;
+        System.out.println("all = " + all);
+    }
+    @Test
+    public void test06(){
+        int a = 1;
+        long  b  =2l;
+        int d = 1;
+        int c = a + (int) b;
+    }
 }

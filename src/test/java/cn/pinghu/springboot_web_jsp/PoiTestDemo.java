@@ -18,7 +18,10 @@ import org.assertj.core.util.Lists;
 import org.junit.Test;
 
 import javax.el.ImportHandler;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class PoiTestDemo {
@@ -167,12 +170,14 @@ public class PoiTestDemo {
     }
 
     /**
-    * 使用模板导出
+    * 使用模板导出Demo
     */
     @Test
     public void fe_map() throws Exception {
+        /*TemplateExportParams params = new TemplateExportParams(
+                "C:\\Users\\lx\\Desktop\\沈凯的个人文件夹\\数据导入\\专项支出用款申请书_map.xls");*/
         TemplateExportParams params = new TemplateExportParams(
-                "C:\\Users\\lx\\Desktop\\沈凯的个人文件夹\\数据导入\\专项支出用款申请书_map.xls");
+                "template/专项支出用款申请书_map.xls",true);
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("date", "2014-12-25");
         map.put("money", 2000000.00);
@@ -200,6 +205,54 @@ public class PoiTestDemo {
         exportExcel(params, map);
     }
 
+    /**
+     * 使用模板导出test(本地文件不在项目里引入文件)
+     */
+    @Test
+    public void fe_map1() throws Exception {
+        TemplateExportParams params = new TemplateExportParams(
+                "C:\\Users\\lx\\Desktop\\沈凯的个人文件夹\\数据导入\\template.xlsx");
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Map<String, String>> listMap = new ArrayList<Map<String, String>>();
+        for (int i = 0; i < 4; i++) {
+            Map<String, String> lm = new HashMap<String, String>();
+            lm.put("id", i + 1 + "");
+            lm.put("project", i * 10000 + "");
+            lm.put("name", "A001");
+            lm.put("age", "设计");
+            lm.put("sex", "EasyPoi " + i + "期");
+            listMap.add(lm);
+        }
+        map.put("maplist", listMap);
+        map.put("test", 1);
+
+        exportExcel(params, map);
+    }
+
+    /**
+     * 使用模板导出test(在项目里引入文件)
+     */
+    @Test
+    public void fe_map2() throws Exception {
+        TemplateExportParams params = new TemplateExportParams(
+                "template/template.xlsx");
+        Map<String, Object> map = new HashMap<String, Object>();
+        List<Map<String, String>> listMap = new ArrayList<Map<String, String>>();
+        for (int i = 0; i < 4; i++) {
+            Map<String, String> lm = new HashMap<String, String>();
+            lm.put("id", i + 1 + "");
+            lm.put("project", i * 10000 + "");
+            lm.put("name", "A001");
+            lm.put("age", "设计");
+            lm.put("sex", "EasyPoi " + i + "期");
+            listMap.add(lm);
+        }
+        map.put("maplist", listMap);
+        map.put("test", 2);
+
+        exportExcel(params, map);
+    }
+
     private void exportExcel(TemplateExportParams params, Map<String, Object> map) throws IOException {
         Workbook workbook = ExcelExportUtil.exportExcel(params, map);
         File savefile = new File("C:\\Users\\lx\\Desktop\\");
@@ -210,6 +263,7 @@ public class PoiTestDemo {
         workbook.write(fos);
         fos.close();
     }
+
 
 
 }

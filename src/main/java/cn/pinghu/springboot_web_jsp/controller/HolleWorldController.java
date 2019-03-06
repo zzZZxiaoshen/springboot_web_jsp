@@ -3,14 +3,18 @@ package cn.pinghu.springboot_web_jsp.controller;
 
 import cn.pinghu.springboot_web_jsp.entity.Department;
 import cn.pinghu.springboot_web_jsp.entity.OrderConversionEntity;
+import cn.pinghu.springboot_web_jsp.entity.StudentEntity;
 import cn.pinghu.springboot_web_jsp.entity.UserEntity;
 import cn.pinghu.springboot_web_jsp.entity.response.HttpBizCode;
 import cn.pinghu.springboot_web_jsp.entity.response.ResponseEntity;
 import cn.pinghu.springboot_web_jsp.mapper.DepartmentMapper;
 import cn.pinghu.springboot_web_jsp.service.OrderService;
 import cn.pinghu.springboot_web_jsp.utils.ExcelConversionUtils;
+import cn.pinghu.springboot_web_jsp.utils.ExcelPoiUtil;
+import cn.pinghu.springboot_web_jsp.utils.ExcelUtils;
 import com.google.common.collect.Lists;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.FastDateFormat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +23,17 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @SessionAttributes(value={"user"}, types={String.class})
 @Controller
 public class HolleWorldController {
 
     private static final Logger LOGGER = LogManager.getLogger(HolleWorldController.class);
+    private static final FastDateFormat FORMAT2 = FastDateFormat.getInstance("yyyy-MM-dd HH:mm:ss");
 
 
     @Autowired
@@ -133,5 +136,19 @@ public class HolleWorldController {
 
     }
 
+    @RequestMapping("/excel/import")
+    public void excelImport(MultipartFile file, HttpServletResponse response){
+        List<StudentEntity> studentEntities =  ExcelPoiUtil.importExcel(file, 1, 0, StudentEntity.class);
+
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("rows", studentEntities);
+        map.put("exportTime", FORMAT2.format(new Date()));
+        try {
+            ExcelPoiUtil.exportExcel("客户列表",map,response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 
