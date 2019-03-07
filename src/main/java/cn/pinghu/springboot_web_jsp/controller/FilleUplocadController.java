@@ -91,7 +91,7 @@ public class FilleUplocadController {
                注意进行输出的时候需要将 文件的io流给transferTo 然后进行输出
                注意区分文件是文件  io流是io流
                在创建文件之后 建立io流通道之后才能进行 数据的写入与输出。
-               在这里操作的是两个东西 一个是文件  一个是数据 这是两方面的数据
+               在这里操作的是两个东西 一个是文件  一个是数据 这是两方面的概念
            */
             file[0].transferTo(newPath);
         } catch (IOException e) {
