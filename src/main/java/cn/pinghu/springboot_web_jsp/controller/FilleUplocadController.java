@@ -3,12 +3,17 @@ package cn.pinghu.springboot_web_jsp.controller;
 import cn.pinghu.springboot_web_jsp.entity.OrderConversionEntity;
 import cn.pinghu.springboot_web_jsp.entity.response.HttpBizCode;
 import cn.pinghu.springboot_web_jsp.entity.response.ResponseEntity;
+import cn.pinghu.springboot_web_jsp.service.FileUpLoadService;
 import cn.pinghu.springboot_web_jsp.utils.BeanHelper;
 import cn.pinghu.springboot_web_jsp.utils.ExcelConversionUtils;
 import com.google.common.collect.Lists;
 import com.xuxueli.poi.excel.ExcelImportUtil;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
@@ -29,6 +35,23 @@ import java.util.stream.Collectors;
  */
 @Controller
 public class FilleUplocadController {
+
+    @Autowired
+    private ServletFileUpload upload;
+    @Autowired
+    private FileUpLoadService fileUpLoadService;
+
+    @RequestMapping("/file/uplocad/fileUpload")
+    public void fileUpload2Demo(HttpServletRequest request) {
+        try {
+            List<FileItem> fileItems = upload.parseRequest(request);
+            fileUpLoadService.uploadFile(fileItems);
+
+        } catch (FileUploadException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      *      本质是操作系统资源使用io流
@@ -75,7 +98,7 @@ public class FilleUplocadController {
      *      与原生的fileupload组件相比大大的简化了我们自生获取拿到文件对象的难度。
      */
 
-    @RequestMapping("/file/uplocad")
+    @RequestMapping("/file/uplocad/Multipart")
     public void uplocadfile(@RequestParam("file") MultipartFile[] file) {
         System.out.println(file[0].getName());
         System.out.println(file[0].getOriginalFilename());
