@@ -44,4 +44,11 @@ public class StringTsetDemo {
         int d = 1;
         int c = a + (int) b;
     }
+
+    @Test
+    public void test07(){
+        String apth = "1111.jsp";
+        String substring = apth.substring(apth.lastIndexOf("."));
+        System.out.println("substring = " + substring);
+    }
 }

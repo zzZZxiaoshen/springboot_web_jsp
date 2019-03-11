@@ -18,6 +18,11 @@ public class FileUploadBean {
     String fileName;
 
     /**
+    * 文件路径
+    */
+    String filePath;
+
+    /**
      * 文件描述
      */
     String desc;

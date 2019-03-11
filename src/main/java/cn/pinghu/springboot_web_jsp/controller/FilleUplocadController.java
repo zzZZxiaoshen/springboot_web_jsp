@@ -22,19 +22,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
- *  文件上传测试类
+ * 文件上传测试类
+ *
  * @author shenkai
  * @date 2019/3/7
  */
 @Controller
 public class FilleUplocadController {
+
+    public static final String PATH = "\\static\\img";
+
 
     @Autowired
     private ServletFileUpload upload;
@@ -45,65 +51,82 @@ public class FilleUplocadController {
     public void fileUpload2Demo(HttpServletRequest request) {
         try {
             List<FileItem> fileItems = upload.parseRequest(request);
-            fileUpLoadService.uploadFile(fileItems);
+            String realPath = request.getServletContext().getRealPath("./");
 
-        } catch (FileUploadException e) {
+            fileUpLoadService.uploadFile(fileItems, realPath);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    @RequestMapping("/test")
+    public void test(HttpServletRequest request) {
+        String contextPath = request.getContextPath();
+        System.out.println("contextPath = " + contextPath);
+        String property = System.getProperty("CATALINA_HOME");
+        System.out.println("property = " + property);
+        String realPath = request.getServletContext().getRealPath("./");
+        System.out.println("realPath = " + realPath);
+     /*   String realPath = servletContext.getRealPath("");
+        System.out.println("realPath = " + realPath);*/
+    }
+
 
     /**
-     *      本质是操作系统资源使用io流
-     *将图片保存至本地
-     *   上传文件使用springmvc提供的multipartFile组件完成文件上传
-     *     得到下载流： 得到想要文件只要使用的文件流只需要file.getBytes()即可
-     *                  大大的封装了fileupload组件的开发的难度
-     *     得到文件名字 ：getOriginalFilename();获取文件名称。
-     *                    getName(); 获取上传文件时候表单的key。一般都是与字符串截取方法配合使用
-     *     获取文件路径： 一般都是自己定义下载的路径的进行拼接
-     *
-     *     将上传文件写到服务器上指定的文件： 使用transferTo（dest）方法
-     *                      这一步就简化了我们使用io流获取输入流 定义输出流进行输出了。
-     *                      注意在这一步我们一般会与其他工具一起使用以实现功能
-     *                      比如poi拿到transferto输出之后的文件（file）然后使用io流获得其输入流
-     *                      然后拿到输入流之后 进行其他组件的操作
-     *
-     *     其他api：
-     *      使用getSize()方法获得文件长度，以此决定允许上传的文件大小。
-     *
-     *      使用isEmpty()方法判断上传文件是否为空文件，以此决定是否拒绝空文件。
-     *
-     *     使用getInputStream()方法将文件读取为java.io.InputStream流对象。
-     *
-     *      使用getContentType()方法获得文件类型，以此决定允许上传的文件类型。
-     *
-     *      例如，如果上传的文件不为空并且大小不小于1024字节，那么可以按照清单7-35中的代码来实现。
-     *
-     *      清单7-35  文件上传示例
-     *
-     *      def upload = {
-     *
-     *      def file = request.getFile('myFile')
-     *
-     *        if(file && !file.empty&& file.size < 1024){
-     *
-     *           file.transferTo( new java.io.File("/local/server/path/${file.name}" ) )
-     *
-     *          }
-     *
-     *     }
-     *
-     *    MultipartFile[] 组件 可以接收多个对象
-     *      与原生的fileupload组件相比大大的简化了我们自生获取拿到文件对象的难度。
+     * 本质是操作系统资源使用io流
+     * 将图片保存至本地
+     * 上传文件使用springmvc提供的multipartFile组件完成文件上传
+     * 得到下载流： 得到想要文件只要使用的文件流只需要file.getBytes()即可
+     * 大大的封装了fileupload组件的开发的难度
+     * 得到文件名字 ：getOriginalFilename();获取文件名称。
+     * getName(); 获取上传文件时候表单的key。一般都是与字符串截取方法配合使用
+     * 获取文件路径： 一般都是自己定义下载的路径的进行拼接
+     * <p>
+     * 将上传文件写到服务器上指定的文件： 使用transferTo（dest）方法
+     * 这一步就简化了我们使用io流获取输入流 定义输出流进行输出了。
+     * 注意在这一步我们一般会与其他工具一起使用以实现功能
+     * 比如poi拿到transferto输出之后的文件（file）然后使用io流获得其输入流
+     * 然后拿到输入流之后 进行其他组件的操作
+     * <p>
+     * 其他api：
+     * 使用getSize()方法获得文件长度，以此决定允许上传的文件大小。
+     * <p>
+     * 使用isEmpty()方法判断上传文件是否为空文件，以此决定是否拒绝空文件。
+     * <p>
+     * 使用getInputStream()方法将文件读取为java.io.InputStream流对象。
+     * <p>
+     * 使用getContentType()方法获得文件类型，以此决定允许上传的文件类型。
+     * <p>
+     * 例如，如果上传的文件不为空并且大小不小于1024字节，那么可以按照清单7-35中的代码来实现。
+     * <p>
+     * 清单7-35  文件上传示例
+     * <p>
+     * def upload = {
+     * <p>
+     * def file = request.getFile('myFile')
+     * <p>
+     * if(file && !file.empty&& file.size < 1024){
+     * <p>
+     * file.transferTo( new java.io.File("/local/server/path/${file.name}" ) )
+     * <p>
+     * }
+     * <p>
+     * }
+     * <p>
+     * MultipartFile[] 组件 可以接收多个对象
+     * 与原生的fileupload组件相比大大的简化了我们自生获取拿到文件对象的难度。
      */
 
     @RequestMapping("/file/uplocad/Multipart")
-    public void uplocadfile(@RequestParam("file") MultipartFile[] file) {
+    public void uplocadfile(@RequestParam("file") MultipartFile[] file
+            , HttpServletRequest request) {
         System.out.println(file[0].getName());
         System.out.println(file[0].getOriginalFilename());
 //        File newPath = new File("C:\\Users\\lx\\Desktop\\企业微信\\"+System.currentTimeMillis()+".jpg");
-     File newPath = new File(System.currentTimeMillis()+".jpg");
+        // 动态的设置文件的下载路径 当然也可以将问价下载路径设置为可配置的配置参数
+        String path = getPath(request);
+        File newPath = new File(path);
 
         try {
             if (!newPath.exists()) {
@@ -122,6 +145,13 @@ public class FilleUplocadController {
         }
         System.out.println(newPath.getAbsolutePath());
         System.out.println(newPath.exists());
+    }
+
+    private String getPath(HttpServletRequest request) {
+        //getServletContext().getRealPath("") 得到当前项目的绝对路径
+        String realPath = request.getServletContext().getRealPath("");
+        Random random = new Random();
+        return realPath + PATH+ "\\" + System.currentTimeMillis() + random.nextInt(100000)+".jpg" ;
     }
 
     /**
