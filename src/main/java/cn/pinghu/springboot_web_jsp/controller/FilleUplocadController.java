@@ -1,34 +1,18 @@
 package cn.pinghu.springboot_web_jsp.controller;
 
-import cn.pinghu.springboot_web_jsp.entity.OrderConversionEntity;
-import cn.pinghu.springboot_web_jsp.entity.response.HttpBizCode;
-import cn.pinghu.springboot_web_jsp.entity.response.ResponseEntity;
 import cn.pinghu.springboot_web_jsp.service.FileUpLoadService;
-import cn.pinghu.springboot_web_jsp.utils.BeanHelper;
-import cn.pinghu.springboot_web_jsp.utils.ExcelConversionUtils;
-import com.google.common.collect.Lists;
-import com.xuxueli.poi.excel.ExcelImportUtil;
 import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * 文件上传测试类
