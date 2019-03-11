@@ -3,6 +3,8 @@ package cn.pinghu.springboot_web_jsp;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.io.File;
+
 public class StringTsetDemo {
 
     @Test
@@ -50,5 +52,8 @@ public class StringTsetDemo {
         String apth = "1111.jsp";
         String substring = apth.substring(apth.lastIndexOf("."));
         System.out.println("substring = " + substring);
+        File file2 = new File("E:\\demo", "a.txt");
+        System.out.println("file2 = " + file2);
     }
+
 }
