@@ -46,9 +46,10 @@ public class FileTest {
     public void test011() {
         // 封装目录
         File srcFolder = new File("C:\\Users\\lx\\Desktop\\企业微信");
-
         // 递归功能实现
         getAllJavaFilePaths(srcFolder);
+        // 递归实现删除文件
+       delete(srcFolder);
     }
     private static void getAllJavaFilePaths(File srcFolder) {
         // 获取该目录下所有的文件或者文件夹的File数组
@@ -68,5 +69,19 @@ public class FileTest {
             }
         }
     }
+
+    public static void delete(File file) {
+        File[] files = file.listFiles();
+        for (File fileItem : files) {
+            if (fileItem.isDirectory()) {
+                delete(fileItem);
+            } else {
+                if (fileItem.isFile()) {
+                    System.out.println("删除文件"+fileItem.delete());
+                }
+            }
+        }
+    }
+
 }
 
