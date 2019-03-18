@@ -13,7 +13,8 @@ import org.springframework.stereotype.Service;
 public class JobService {
 
     //@Scheduled(cron= "0 * * * * ?")
-    @Scheduled(cron = "0,1,2,3,4 * * * * ?")
+//    @Scheduled(cron = "0,1,2,3,4 * * * * ?")
+    @Scheduled(cron = "0 0 1 15 * ?")
     public void testSchedules(){
         System.out.println("test");
     }
