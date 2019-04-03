@@ -47,7 +47,7 @@ public class FileUpLoadService {
         //5. 把上传的信息保存到数据库中（注意这步的目的是为了保存在数据库的文件信息，而不是真正的文件）。
         //  fileUploadSave(fileUploadBeans);
         //6. 删除临时文件夹的临时文件
-
+        //FileUtils.delAllFile(TEMP_DIR);
     }
 
     /**

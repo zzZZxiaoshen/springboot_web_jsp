@@ -12,6 +12,7 @@ import cn.afterturn.easypoi.handler.inter.IExcelDataHandler;
 import cn.afterturn.easypoi.util.PoiPublicUtil;
 import cn.pinghu.springboot_web_jsp.entity.*;
 import com.google.common.collect.Maps;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.assertj.core.util.Lists;
@@ -262,6 +263,21 @@ public class PoiTestDemo {
         FileOutputStream fos = new FileOutputStream("C:\\Users\\lx\\Desktop\\test.xls");
         workbook.write(fos);
         fos.close();
+    }
+
+    @Test
+    public void test06() {
+        List<Map<String, String>> objects = new ArrayList<>();
+        HashMap<String, String> map1 = new HashMap<String, String>();
+        map1.put("name", "xoiaoshen");
+        map1.put("age", "12");
+        objects.add(map1);
+       Map<String, String> map2 = new HashMap<String, String>();
+        map2.put("name", "xoiaoshen2");
+        map2.put("age", "122");objects.add(map2);
+        for (Map<String, String> object : objects) {
+            System.out.println( object.toString());
+        }
     }
 
 

@@ -1,6 +1,13 @@
 package cn.pinghu.springboot_web_jsp.controller;
 
+import cn.afterturn.easypoi.excel.ExcelImportUtil;
+import cn.afterturn.easypoi.excel.entity.ImportParams;
+import cn.afterturn.easypoi.util.PoiPublicUtil;
+import cn.pinghu.springboot_web_jsp.dto.response.ResponseCode;
+import cn.pinghu.springboot_web_jsp.entity.response.HttpBizCode;
+import cn.pinghu.springboot_web_jsp.entity.response.ResponseEntity;
 import cn.pinghu.springboot_web_jsp.service.FileUpLoadService;
+import cn.pinghu.springboot_web_jsp.utils.BeanHelper;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.*;
-import java.util.List;
-import java.util.Random;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * 文件上传测试类
@@ -56,6 +63,16 @@ public class FilleUplocadController {
         System.out.println("realPath = " + realPath);*/
     }
 
+    /**
+    * excel导入
+    */
+    public void  test02() {
+ /*       ImportParams params = new ImportParams();
+        params.setDataHanlder(new MapImportHanlder());
+        long start = new Date().getTime();
+        List<Map<String, Object>> list = ExcelImportUtil.importExcel(
+                new File(PoiPublicUtil.getWebRootPath("import/check.xls")), Map.class, params);*/
+    }
 
     /**
      * 本质是操作系统资源使用io流
@@ -137,6 +154,63 @@ public class FilleUplocadController {
         Random random = new Random();
         return realPath + PATH+ "\\" + System.currentTimeMillis() + random.nextInt(100000)+".jpg" ;
     }
+
+
+    /**
+     * 导入 基于easypoi得导入
+     */
+ /*   @RequestMapping(value = "/import")
+    public ResponseEntity importQuotes(MultipartFile file) {
+        ResponseEntity resp = ResponseEntity.newInstance();
+        if (file == null || file.isEmpty()) {
+            return resp.fill(HttpBizCode.BIZ_ERROR, "请上传文件", false);
+        }
+        List<QuoteEntity> quotes;
+        int index = 1;
+        try {
+            ImportParams params = new ImportParams();
+            params.setImportFields(new String[]{"品牌", "生产日期", "报价", "到港时间", "创建日期", "报价使用开始", "报价使用结束", "状态"});
+            List<Map<String, String>> objects = ExcelImportUtil.importExcel(file.getInputStream(), Map.class, params);
+            quotes = new ArrayList<>(objects.size());
+            for (Map<String, String> map : objects) {
+                index++;
+                String brand = ExcelUtil.getMapValue(map, "品牌");
+                Date productionDate = ExcelUtil.getMapValue(map, "生产日期", Date.class);
+                BigDecimal quote = ExcelUtil.getMapValue(map, "报价", BigDecimal.class);
+                Date arrivalDate = ExcelUtil.getMapValue(map, "到港时间", Date.class);
+                Date gmtCreated = ExcelUtil.getMapValue(map, "创建日期", Date.class);
+                Date startDate = ExcelUtil.getMapValue(map, "报价使用开始", Date.class);
+                Date endDate = ExcelUtil.getMapValue(map, "报价使用结束", Date.class);
+                String status = ExcelUtil.getMapValue(map, "状态");
+                //不接受空行
+                if (ExcelUtil.isAllNotNull(quote, brand, productionDate, arrivalDate, gmtCreated, status,startDate,endDate)) {
+                    QuoteEntity quoteEntity = new QuoteEntity();
+                    quoteEntity.setQuote(quote);
+                    quoteEntity.setBrand(brand);
+                    quoteEntity.setProductionDate(productionDate);
+                    quoteEntity.setArrivalDate(arrivalDate);
+                    quoteEntity.setGmtCreated(gmtCreated);
+                    quoteEntity.setStartDate(startDate);
+                    quoteEntity.setEndDate(endDate);
+                    QuoteStatus quoteStatus = QuoteStatus.getByDesc(status);
+                    if (quoteStatus == null) {
+                        throw new RuntimeException("状态错误");
+                    }
+                    quoteEntity.setStatus(quoteStatus.getCode());
+                    quotes.add(quoteEntity);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            return resp.fill(HttpBizCode.BIZ_ERROR, "行数[" + index + "]数据错误，请检查！" + e.getMessage(), false);
+        }
+        List<QuoteDto> quoteDtos = BeanHelper.deepCopys(quotes, QuoteDto.class);
+        Response<Boolean> bp = marketQuoteService.adds(quoteDtos);
+        if (bp.getCode() != ResponseCode.SUCCESS.getCode()) {
+            return resp.fill(HttpBizCode.BIZ_ERROR, bp.getMessage(), false);
+        }
+        return resp.fill(HttpBizCode.SUCCESS, HttpBizCode.SUCCESS.getMessage(), true);
+    }*/
 
     /**
      * 导入线路   以下是完成文件上传 之后拿到文件file对象之后， 可以对其进行io操作。
@@ -221,4 +295,6 @@ public class FilleUplocadController {
         }
 
     }*/
+
+
 }
