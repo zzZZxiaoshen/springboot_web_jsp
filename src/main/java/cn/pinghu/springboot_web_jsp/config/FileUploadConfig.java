@@ -34,4 +34,5 @@ public class FileUploadConfig {
     * 允许所有文件上传的总共大小
     */
     private String   totalFileMaxSize;
+
 }
