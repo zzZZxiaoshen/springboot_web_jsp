@@ -28,8 +28,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-@SessionAttributes(value={"user"}, types={String.class})
-@Controller
+/*@SessionAttributes(value={"user"}, types={String.class})
+@Controller*/
 public class HolleWorldController {
 
     private static final Logger LOGGER = LogManager.getLogger(HolleWorldController.class);

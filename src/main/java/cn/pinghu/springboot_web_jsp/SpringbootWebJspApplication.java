@@ -9,6 +9,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @EnableCaching
 @EnableScheduling
+//@MapperScan("cn.pinghu.springboot_web_jsp.mapper")
 public class SpringbootWebJspApplication {
 
 

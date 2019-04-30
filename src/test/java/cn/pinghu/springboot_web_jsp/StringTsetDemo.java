@@ -107,4 +107,16 @@ public class StringTsetDemo {
         System.out.println("substring = " + substring);
     }
 
+    // 将本字符串转换成一个字符串数组，要求每个数组元素都是一个有意义的额英文单词,并输出到控制台
+    @Test
+    public void test11(){
+        System.out.println("测试");
+        System.out.println("STRING = " + STRING);
+    }
+    //
+    @Test
+    public void test12(){
+        String str = "abcdef";
+        System.out.println(str.length());
+    }
 }

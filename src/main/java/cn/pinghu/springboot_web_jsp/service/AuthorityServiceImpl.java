@@ -2,7 +2,6 @@ package cn.pinghu.springboot_web_jsp.service;
 
 import cn.pinghu.springboot_web_jsp.domain.AuthorityDo;
 import cn.pinghu.springboot_web_jsp.dto.AuthorityDto;
-import cn.pinghu.springboot_web_jsp.mapper.AuthorityMapper;
 import cn.pinghu.springboot_web_jsp.utils.BeanHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
