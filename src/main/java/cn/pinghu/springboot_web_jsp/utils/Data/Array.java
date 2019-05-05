@@ -125,6 +125,8 @@ public class Array   {
         return -1;
     }
 
+
+
     /**
      * 删除数组中的元素
      * @return 删除元素
@@ -140,6 +142,22 @@ public class Array   {
         size--;
         return ret;
     }
+    /**
+     * 删除第一个元素
+     * @return 删除第一个元素并且返回
+     */
+    public int  removeFirst(int index) {
+        return removeElement(0);
+    }
+
+    /**
+     * 删除最后一个元素
+     * @return 删除并且返回最后一个元素
+     */
+    public int  removeLast(int index) {
+        return removeElement(size-1);
+    }
+
 
 
     @Override
@@ -149,4 +167,5 @@ public class Array   {
                 ", size=" + size +
                 '}';
     }
+
 }
