@@ -7,13 +7,13 @@ import java.util.Arrays;
  * @author shenkai
  * @date 2019/5/5
  */
-public class Array   {
+public class Array <T>  {
 
-    private int[] data;
+    private T[] data;
     private int size;
 
     public Array(int capacity){
-        this.data = new int[capacity];
+        this.data = (T[])new Object[capacity];
         this.size = 0;
     }
 
@@ -47,7 +47,7 @@ public class Array   {
     /**
      * 获取索引处的元素
      */
-    public int get(int index) {
+    public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Set failed. Index is illegal.");
         }
@@ -57,7 +57,7 @@ public class Array   {
     /**
      *  修改
      */
-    public void set(int index,int element) {
+    public void set(int index,T element) {
         if (index < 0 || index >= size) {
             throw new IllegalArgumentException("Set failed. Index is illegal.");
         }
@@ -68,7 +68,7 @@ public class Array   {
      * 向数组首位置 插入元素
      * @param element 元素
      */
-    public void  addFirst(int element) {
+    public void  addFirst(T element) {
         add(0,element);
     }
 
@@ -76,7 +76,7 @@ public class Array   {
      * 向元素的末尾 插入元素
      * @param element 元素
      */
-    public void  addLast(int element) {
+    public void  addLast(T element) {
         add(size,element);
     }
     /**
@@ -84,12 +84,15 @@ public class Array   {
      * @param index 添加元素的位置
      * @param element 元素
      */
-    public void  add(int index,int element) {
+    public void  add(int index,T element) {
         if (index >data.length){
             throw new RuntimeException("add Element erro");
         }
         if (index > size || index < 0) {
             throw new RuntimeException("add Element erro");
+        }
+        if (index >= size) {
+            resize(data.length*2);
         }
         for (int i = size - 1; i >= size; i--) {
             data[i + 1] = data[1];
@@ -98,11 +101,19 @@ public class Array   {
         size++;
     }
 
+    private void resize(int capacity) {
+       T[] newArray= (T[])new Object[capacity];
+        for (int i = 0; i < size; i++) {
+            newArray[i] = data[i ];
+        }
+        this.data = newArray;
+    }
+
     /**
      * 包含
      * @return 是否包含
      */
-    public boolean containElement(int element){
+    public boolean containElement(T element){
         for (int i = 0; i < data.length; i++) {
             if (data[i] == element) {
                 return true;
@@ -116,7 +127,7 @@ public class Array   {
      * @param element 元素
      * @return 元素对应的索引 -1 为没有对应的元素
      */
-    public int find(int element) {
+    public int find(T element) {
         for (int i = 0; i < data.length; i++) {
             if (data[i] == element) {
                 return i;
@@ -131,22 +142,26 @@ public class Array   {
      * 删除数组中的元素
      * @return 删除元素
      */
-    public int removeElement(int index) {
+    public T removeElement(int index) {
         if (index < 0 || index > size) {
             throw new IllegalArgumentException("Remove failed. Index is illegal.");
         }
-        int ret = data[index];
+
+        T ret = data[index];
         for (int i = index+1; i < size; i++) {
             data[i - 1] = data[i];
         }
         size--;
+        if (index >= size/4) {
+            resize(data.length/2);
+        }
         return ret;
     }
     /**
      * 删除第一个元素
      * @return 删除第一个元素并且返回
      */
-    public int  removeFirst(int index) {
+    public T  removeFirst(int index) {
         return removeElement(0);
     }
 
@@ -154,7 +169,7 @@ public class Array   {
      * 删除最后一个元素
      * @return 删除并且返回最后一个元素
      */
-    public int  removeLast(int index) {
+    public T  removeLast() {
         return removeElement(size-1);
     }
 
@@ -162,7 +177,7 @@ public class Array   {
      * 从数组中删除指定元素
      * @param element 指定元素
      */
-    public void remove(int element) {
+    public void remove(T element) {
         int index = find(element);
         if (index !=-1) {
           removeElement(index);
