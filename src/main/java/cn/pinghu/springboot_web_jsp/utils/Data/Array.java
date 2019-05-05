@@ -91,7 +91,7 @@ public class Array <T>  {
         if (index > size || index < 0) {
             throw new RuntimeException("add Element erro");
         }
-        if (index >= size) {
+        if (size == data.length) {
             resize(data.length*2);
         }
         for (int i = size - 1; i >= size; i--) {
@@ -143,7 +143,7 @@ public class Array <T>  {
      * @return 删除元素
      */
     public T removeElement(int index) {
-        if (index < 0 || index > size) {
+        if (index > size || index < 0) {
             throw new IllegalArgumentException("Remove failed. Index is illegal.");
         }
 
@@ -152,7 +152,7 @@ public class Array <T>  {
             data[i - 1] = data[i];
         }
         size--;
-        if (index >= size/4) {
+        if (size == data.length/4) {
             resize(data.length/2);
         }
         return ret;
@@ -161,7 +161,7 @@ public class Array <T>  {
      * 删除第一个元素
      * @return 删除第一个元素并且返回
      */
-    public T  removeFirst(int index) {
+    public T  removeFirst() {
         return removeElement(0);
     }
 

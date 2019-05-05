@@ -14,12 +14,18 @@ public class DataTest {
     @Test
     public void test01(){
         Array array = new Array();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 11; i++) {
          array.add(i,i);
         }
         System.out.println("array = " + array);
         array.add(1, 100);
         System.out.println("array = " + array);
+
+        for (int i = 0; i < 8; i++) {
+            array.removeFirst();
+        }
+        System.out.println("array = " + array);
+
         System.out.println(array.get(1));
         System.out.println(array.find(100));
         System.out.println(array.containElement(1000));
