@@ -158,6 +158,16 @@ public class Array   {
         return removeElement(size-1);
     }
 
+    /**
+     * 从数组中删除指定元素
+     * @param element 指定元素
+     */
+    public void remove(int element) {
+        int index = find(element);
+        if (index !=-1) {
+          removeElement(index);
+        }
+    }
 
 
     @Override
