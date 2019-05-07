@@ -3,6 +3,7 @@ package cn.pinghu.springboot_web_jsp;
 import cn.pinghu.springboot_web_jsp.utils.Data.Array;
 import cn.pinghu.springboot_web_jsp.utils.Data.ArrayQueue;
 import cn.pinghu.springboot_web_jsp.utils.Data.ArrayStack;
+import cn.pinghu.springboot_web_jsp.utils.Data.LoopQueue;
 import com.google.common.base.Splitter;
 import org.junit.Test;
 import java.util.List;
@@ -73,6 +74,23 @@ public class DataTest {
         System.out.println(queue.getSize());
 
         System.out.println(queue.isEmpty());
+    }
+
+    /**
+     * 循环队列
+     */
+    @Test
+    public void test05(){
+        LoopQueue<Integer> loopQueue = new LoopQueue<>();
+        for (int i = 0; i < 15; i++) {
+            loopQueue.enQueue(i);
+        }
+        System.out.println("loopQueue = " + loopQueue.toString());
+        System.out.println(loopQueue.getFront());
+        System.out.println(loopQueue.deQueue());
+        System.out.println(loopQueue.getSize());
+        System.out.println(loopQueue.isEmpty());
+
     }
 
     private boolean match(String param) {
