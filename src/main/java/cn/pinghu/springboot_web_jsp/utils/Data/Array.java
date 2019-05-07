@@ -1,13 +1,11 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
-import java.util.Arrays;
-
 /**
  * 自定义数组数据结构（线性结构）
  * @author shenkai
  * @date 2019/5/5
  */
-public class Array <T>  {
+public class Array<T>  {
 
     private T[] data;
     private int size;
@@ -158,19 +156,19 @@ public class Array <T>  {
         return ret;
     }
     /**
-     * 删除第一个元素
-     * @return 删除第一个元素并且返回
-     */
-    public T  removeFirst() {
-        return removeElement(0);
-    }
-
-    /**
      * 删除最后一个元素
      * @return 删除并且返回最后一个元素
      */
     public T  removeLast() {
         return removeElement(size-1);
+    }
+
+    /**
+     * 删除第一个元素
+     * @return 删除第一个元素并且返回
+     */
+    public T  removeFirst() {
+        return removeElement(0);
     }
 
     /**
@@ -188,7 +186,7 @@ public class Array <T>  {
     @Override
     public String toString() {
         return "Array{" +
-                "data=" + Arrays.toString(data) +
+                "data=" + java.util.Arrays.toString(data) +
                 ", size=" + size +
                 '}';
     }

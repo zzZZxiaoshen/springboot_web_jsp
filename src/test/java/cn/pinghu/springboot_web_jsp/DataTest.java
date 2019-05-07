@@ -1,6 +1,7 @@
 package cn.pinghu.springboot_web_jsp;
 
 import cn.pinghu.springboot_web_jsp.utils.Data.Array;
+import cn.pinghu.springboot_web_jsp.utils.Data.ArrayQueue;
 import cn.pinghu.springboot_web_jsp.utils.Data.ArrayStack;
 import com.google.common.base.Splitter;
 import org.junit.Test;
@@ -52,8 +53,26 @@ public class DataTest {
     */
     @Test
     public void test03(){
-//        System.out.println(match("{ [ ("));
+       //System.out.println(match("{ [ ("));
         System.out.println(match1("{[]}"));
+    }
+
+    /**
+     * 数据队列
+     */
+    @Test
+    public void test04(){
+        ArrayQueue<Integer> queue = new ArrayQueue<>();
+        for (int i = 0; i < 10; i++) {
+            queue.enQueue(i);
+        }
+        System.out.println("queue = " + queue);
+
+        System.out.println(queue.deQueue());
+        System.out.println(queue.deQueue());
+        System.out.println(queue.getSize());
+
+        System.out.println(queue.isEmpty());
     }
 
     private boolean match(String param) {
@@ -96,6 +115,7 @@ public class DataTest {
         }
         return stack.isEmpty();
     }
+
 
 
 }
