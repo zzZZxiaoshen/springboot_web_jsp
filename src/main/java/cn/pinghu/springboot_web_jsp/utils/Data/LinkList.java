@@ -45,6 +45,14 @@ public class LinkList<T> {
     }
 
     /**
+     * 判断链表是否为空
+     * @return true 为空
+     */
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    /**
      * 向链表头加入数据
      * @param element 元素
      */
@@ -95,5 +103,11 @@ public class LinkList<T> {
         add(element, size);
     }
 
-
+    @Override
+    public String toString() {
+        return "LinkList{" +
+                "head=" + head +
+                ", size=" + size +
+                '}';
+    }
 }

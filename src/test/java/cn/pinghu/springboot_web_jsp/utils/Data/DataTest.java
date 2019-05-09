@@ -1,4 +1,4 @@
-package cn.pinghu.springboot_web_jsp;
+package cn.pinghu.springboot_web_jsp.utils.Data;
 
 import cn.pinghu.springboot_web_jsp.utils.Data.Array;
 import cn.pinghu.springboot_web_jsp.utils.Data.ArrayQueue;
