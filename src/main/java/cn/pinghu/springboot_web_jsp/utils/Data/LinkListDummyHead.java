@@ -100,6 +100,8 @@ public class LinkListDummyHead<T> {
         add(element,size);
     }
 
+
+
     /**
      * 获取索引位置处的元素内容
      * @param index 索引位置
@@ -115,6 +117,20 @@ public class LinkListDummyHead<T> {
         }
         // 获取索引位置处的数据
         return preNode.node.element;
+    }
+
+    /**
+    * 获取第一个元素
+    */
+    public T getFirst() {
+        return get(0);
+    }
+
+    /**
+    * 获取最后一个元素
+    */
+    public T getLast(){
+        return get(size-1);
     }
 
     /**
@@ -136,9 +152,10 @@ public class LinkListDummyHead<T> {
 
 
     /**
-    * 查找链表中是否包含该元素
-    */
-
+     * 查找链表中是否包含该元素
+     * @param element 元素
+     * @return 是否包含对应元素
+     */
     public Boolean contain(T element){
         Node preNode = dummyHead;
         for (int i = 0; i < size; i++) {
@@ -149,6 +166,58 @@ public class LinkListDummyHead<T> {
         }
         return Boolean.FALSE;
     }
+
+    /**
+     *  删除 索引位置处的元素
+     * @param index 索引位置
+     * @return 索引位置存储的数据
+     */
+    public T remove(int index) {
+        if (index < 0 || index > size) {
+            throw new RuntimeException("add linkList index lt size");
+        }
+        Node preNode = dummyHead;
+        for (int i = 0; i < index; i++) {
+            preNode = preNode.node;
+        }
+       T res = preNode.node.element;
+        preNode.node = preNode.node.node;
+        size--;
+        return res;
+    }
+
+    /**
+    * 删除第一个元素
+    */
+    public T removeFirst() {
+        return remove(0);
+    }
+
+    /**
+     * 删除最后一个元素
+     */
+    public T removeLast(){
+        return remove(size-1);
+    }
+
+    /**
+    * 删除指定元素
+    */
+    public Boolean removeEelement(T element) {
+        Node preNode = dummyHead.node;
+        while (contain(element)) {
+            if (preNode.element.equals(element)) {
+                preNode.node =preNode.node.node;
+                size--;
+                return Boolean.TRUE;
+            }
+            preNode = preNode.node;
+        }
+        return Boolean.FALSE;
+    }
+
+
+
 
 
 
