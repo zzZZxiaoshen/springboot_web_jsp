@@ -101,7 +101,6 @@ public class LinkListDummyHead<T> {
     }
 
 
-
     /**
      * 获取索引位置处的元素内容
      * @param index 索引位置
