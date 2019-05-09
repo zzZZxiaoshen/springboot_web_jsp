@@ -1,13 +1,10 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
-import com.sun.corba.se.impl.orbutil.LogKeywords;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class LinkListTest {
 
-    private LinkList<Integer> linkList = new LinkList();
+    private LinkListRealHead<Integer> linkList = new LinkListRealHead();
 
     @Test
     public void getSize() {
@@ -34,7 +31,7 @@ public class LinkListTest {
         for (int i = 0; i < 10; i++) {
             linkList.addFirst(i);
         }
-        linkList.add(100,0);
+        linkList.add(100,3);
         System.out.println(linkList.toString());
         System.out.println(linkList.isEmpty());
         System.out.println(linkList.getSize());
