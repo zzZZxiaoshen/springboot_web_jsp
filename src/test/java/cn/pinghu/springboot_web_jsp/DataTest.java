@@ -48,7 +48,6 @@ public class DataTest {
         System.out.println(stack.getSize());
         System.out.println(stack.pop());
         System.out.println(stack.getSize());
-
     }
 
     /**
@@ -135,7 +134,5 @@ public class DataTest {
         }
         return stack.isEmpty();
     }
-
-
 
 }
