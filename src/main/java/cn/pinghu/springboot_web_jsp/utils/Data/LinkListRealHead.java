@@ -1,6 +1,8 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
 
+import lombok.val;
+
 /**
  * 链表 真头设计
  * @author shenkai
@@ -120,6 +122,55 @@ public class LinkListRealHead<T> {
         add(element, size);
     }
 
+
+    /**
+     * 删除链表中所有相同的元素(循环方法)
+     * @param val 需要被删除的元素
+     */
+    public Node  removeEelement1(T val) {
+        // 处理链表头
+        if (head != null && head.element.equals(val)) {
+            Node delNode = head;
+            head = delNode.node;
+            delNode.node = null;
+        }
+        if (head == null) {
+            return null;
+        }
+        // 处理链表中部以及尾部
+        Node preNode = head.node;
+        while (preNode.node != null) {
+            if (head.element.equals(val)) {
+                Node delNode = head.node;
+                preNode.node = delNode.node;
+                delNode.node = null;
+                size--;
+            } else {
+                preNode = preNode.node;
+            }
+        }
+        return head;
+    }
+
+    /**
+     * 删除链表中所有相同的元素（递归算法）
+     * @param val 需要被删除的元素
+     */
+    public Node  removeEelement2(Node node ,T val) {
+
+        if (head == null) {
+            return null;
+        }
+        Node res = removeEelement2(node.node, val);
+        if (node.element.equals(val)) {
+            return res;
+        } else {
+            node.node = res;
+            return node;
+        }
+
+    }
+
     @Override
     public String toString() {
         return "LinkList{" +
@@ -127,4 +178,5 @@ public class LinkListRealHead<T> {
                 ", size=" + size +
                 '}';
     }
+
 }

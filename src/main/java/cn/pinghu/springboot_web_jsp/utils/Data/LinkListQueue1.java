@@ -6,11 +6,11 @@ package cn.pinghu.springboot_web_jsp.utils.Data;
  * @author shenkai
  * @date 2019/5/9
  */
-public class LinkListQueue<T> implements Queue<T> {
+public class LinkListQueue1<T> implements Queue<T> {
 
     private LinkListDummyHead<T> linkListDummyHead;
 
-    public LinkListQueue() {
+    public LinkListQueue1() {
         this.linkListDummyHead = new LinkListDummyHead();
     }
 

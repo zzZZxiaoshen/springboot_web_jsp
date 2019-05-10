@@ -1,10 +1,7 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
-import jdk.nashorn.internal.runtime.FindProperty;
-import org.apache.poi.ss.formula.functions.T;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
 
 /**
  * 链表队列测试类
@@ -13,7 +10,7 @@ import static org.junit.Assert.*;
  */
 public class LinkListQueueTest {
 
-    private LinkListQueue<Integer> linkListQueue = new LinkListQueue<>();
+    private LinkListQueue1<Integer> linkListQueue = new LinkListQueue1<>();
 
 
     @Test
@@ -32,7 +29,6 @@ public class LinkListQueueTest {
         System.out.println("linkListQueue = " + linkListQueue);
         System.out.println(linkListQueue.deQueue());
         System.out.println(linkListQueue.getSize());
-
     }
 
     @Test

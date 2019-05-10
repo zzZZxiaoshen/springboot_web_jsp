@@ -199,6 +199,30 @@ public class LinkListDummyHead<T> {
         return remove(size-1);
     }
 
+
+    /**
+     * 删除链表中所有相同的元素
+     * @param element
+     */
+    public Node removeAllEelement1(T element) {
+        // 处理链表中部以及尾部
+        Node preNode = dummyHead;
+        while (preNode.node != null) {
+            if (preNode.element.equals(element)) {
+                Node delNode = preNode.node;
+                preNode.node = delNode.node;
+                delNode.node = null;
+                size--;
+            } else {
+                preNode = preNode.node;
+            }
+        }
+        return dummyHead.node;
+    }
+
+
+
+
     /**
     * 删除指定元素
     */
