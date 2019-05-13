@@ -1,18 +1,11 @@
 package cn.pinghu.springboot_web_jsp.utils;
 
-import cn.pinghu.springboot_web_jsp.entity.ExcelPropertyIndexModel;
-import cn.pinghu.springboot_web_jsp.entity.OrderEntity;
 import com.alibaba.excel.ExcelWriter;
 import com.alibaba.excel.metadata.BaseRowModel;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.support.ExcelTypeEnum;
-import com.sun.org.apache.xpath.internal.operations.Or;
-import com.sun.xml.internal.bind.v2.util.ByteArrayOutputStreamEx;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.core.annotation.Order;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.List;
 
 public class ExcelUtils {
