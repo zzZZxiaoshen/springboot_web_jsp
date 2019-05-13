@@ -84,10 +84,14 @@ public class BSTreeTest {
 
     @Test
     public void getSize() {
-
+        bsTree.remove(9);
+        bsTree.remove(7);
+        System.out.println(bsTree.getSize());
     }
 
     @Test
     public void isEmpty() {
+        System.out.println(bsTree.isEmpty());
     }
+
 }
