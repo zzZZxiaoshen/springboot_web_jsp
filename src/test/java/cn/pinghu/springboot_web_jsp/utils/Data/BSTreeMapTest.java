@@ -42,6 +42,9 @@ public class BSTreeMapTest {
 
     @Test
     public void remove() {
+        System.out.println(bsTreeMap.remove(7));
+        System.out.println(bsTreeMap.toString());
+        System.out.println(bsTreeMap.getSize());
     }
 
     @Test
@@ -54,5 +57,7 @@ public class BSTreeMapTest {
 
     @Test
     public void set() {
+        bsTreeMap.set( 7,1000);
+        System.out.println(bsTreeMap.toString());
     }
 }

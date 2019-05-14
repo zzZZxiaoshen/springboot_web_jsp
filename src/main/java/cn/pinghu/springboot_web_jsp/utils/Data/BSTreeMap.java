@@ -1,5 +1,7 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
+import org.apache.poi.hssf.record.PageBreakRecord;
+
 /**
  * 数据结构抽象概念接口map 实现(树结构实现map映射数据结构抽象概念)
  * @author shenkai
@@ -217,11 +219,12 @@ public class BSTreeMap <K extends Comparable,V> implements Map<K,V> {
         }
         if (node.key != null && node.key.equals(key)) {
             node.value = value;
+            return;
         }
         if (node.key != null &&node.key.compareTo(key) > 0) {
-          set(key, value, node);
+          set(key, value, node.left);
         } else if ( node.key != null && node.key.compareTo(key) < 0) {
-           set(key, value, node);
+           set(key, value, node.right);
         }
     }
 
