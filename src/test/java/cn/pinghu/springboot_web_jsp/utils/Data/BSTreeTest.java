@@ -38,7 +38,7 @@ public class BSTreeTest {
         bsTree.interTranserve();
     }
 
-      @Test
+    @Test
     public void postTranserve(){
         System.out.println(bsTree);
         System.out.println("\n");
