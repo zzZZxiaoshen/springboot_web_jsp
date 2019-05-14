@@ -42,17 +42,19 @@ public class BSTreeMapTest {
 
     @Test
     public void remove() {
-        System.out.println(bsTreeMap.remove(7));
+        System.out.println(bsTreeMap.remove(5));
         System.out.println(bsTreeMap.toString());
         System.out.println(bsTreeMap.getSize());
     }
 
     @Test
     public void minValue() {
+        System.out.println(bsTreeMap.minValue());
     }
 
     @Test
     public void maxValue() {
+
     }
 
     @Test
@@ -60,4 +62,5 @@ public class BSTreeMapTest {
         bsTreeMap.set( 7,1000);
         System.out.println(bsTreeMap.toString());
     }
+
 }

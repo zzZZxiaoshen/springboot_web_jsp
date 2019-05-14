@@ -160,11 +160,10 @@ public class BSTreeMap <K extends Comparable,V> implements Map<K,V> {
     }
 
     private Node minValueNode(Node node) {
-        if (node == null) {
-            return null;
+        if (node.left == null) {
+            return node;
         }
-        minValueNode(node.left);
-        return node;
+        return   minValueNode(node.left);
     }
 
     // 返回以node为根的二分搜索树的最小值所在的节点
@@ -197,11 +196,10 @@ public class BSTreeMap <K extends Comparable,V> implements Map<K,V> {
     }
 
     private Node maxValueNode(Node node) {
-        if (node == null) {
-            return null;
+        if (node.left == null) {
+            return node;
         }
-        maxValueNode(node.right);
-        return node;
+        return  maxValueNode(node.right);
     }
 
 
