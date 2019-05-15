@@ -134,8 +134,6 @@ public class Array<T>  {
         return -1;
     }
 
-
-
     /**
      * 删除数组中的元素
      * @return 删除元素
@@ -182,6 +180,16 @@ public class Array<T>  {
         }
     }
 
+
+    public void swap(int i, int j){
+
+        if(i < 0 || i >= size || j < 0 || j >= size)
+            throw new IllegalArgumentException("Index is illegal.");
+
+        T t = data[i];
+        data[i] = data[j];
+        data[j] = t;
+    }
 
     @Override
     public String toString() {
