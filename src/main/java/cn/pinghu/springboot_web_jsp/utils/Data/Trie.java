@@ -105,8 +105,16 @@ public class Trie {
             if (node.next.get(c) == null) {
                 return false;
             }
+            return match(node.next.get(c), word, index + 1);
+        } else {
+            for (Character character : node.next.keySet()) {
+                // 将每个元素的后续元素进行匹配 然后判断是否匹配
+                if (match(node.next.get(character), word, index + 1)) {
+                    return true;
+                }
+            }
+            return false;
         }
-        return false;
     }
 
     @Override
