@@ -23,6 +23,9 @@ public class AVLTreeTest {
         System.out.println(avlTree.contain(1));
         System.out.println(avlTree.getSize());
         System.out.println(avlTree.toString());
+
+        System.out.println(avlTree.isBanlanceAvl());
+        System.out.println(avlTree.isBST());
     }
 
     @Test

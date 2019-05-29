@@ -75,7 +75,7 @@ public class AVLTree <K extends  Comparable,V> {
     public boolean isBST(){
         ArrayList<K> array = new ArrayList<>();
         inOrder(root,array);
-        for (int i = 0; i < getSize(); i++) {
+        for (int i = 1; i < getSize(); i++) {
             if (array.get(i - 1).compareTo(array.get(i)) > 0) {
                 return false;
             }
@@ -102,7 +102,7 @@ public class AVLTree <K extends  Comparable,V> {
             return true;
         }
         int banlance = getbalanceFactory(node);
-        if (Math.abs(banlance) > 0 ) {
+        if (Math.abs(banlance) > 1 ) {
             return false;
         }
         return isBanlanceAvl(node.left)
