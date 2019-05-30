@@ -1,8 +1,7 @@
 package cn.pinghu.springboot_web_jsp.utils.Data;
 
+import cn.pinghu.springboot_web_jsp.utils.Data.avl.AVLTree;
 import org.junit.Test;
-
-import static org.junit.Assert.*;
 
 public class AVLTreeTest {
 
