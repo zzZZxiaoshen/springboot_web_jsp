@@ -237,7 +237,7 @@ public class AVLTree <K extends  Comparable,V> {
             node.right = null;
             return rightNode;
         }
-        node.left = removeMin(node);
+        node.left = removeMin(node.left);
         return node;
     }
 
@@ -290,40 +290,64 @@ public class AVLTree <K extends  Comparable,V> {
         if (node == null) {
             return null;
         }
+        Node retNode;
         if (node.key.compareTo(key) > 0) {
             node.left = remove(key, node.left);
-            return node;
+             retNode = node;
         } else if (node.key.compareTo(key) < 0) {
             node.right = remove(key, node.right);
-            return node;
+            retNode = node;
         } else {//node.key.compareTo(key)== 0
             // 删除只有右子树的节点
             if (node.left == null) {
                 Node rightNode = node.right;
                 node.right = null;
                 size--;
-                return rightNode;
+                retNode =  rightNode;
             }
-
             // 删除只有左子树的节点
-            if (node.right == null) {
+            else if (node.right == null) {
                 Node leftNode = node.left;
                 node.left = null;
                 size--;
-                return leftNode;
+                retNode = leftNode;
+            } else {
+                // 待删除节点左右子树均不为空的情况
+
+                // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
+                // 用这个节点顶替待删除节点的位置
+                Node successor = minElement(node.right);
+                successor.right = remove(successor.key,node.right);
+                successor.left = node.left;
+
+                node.left = node.right = null;
+                retNode = successor;
             }
-
-            // 待删除节点左右子树均不为空的情况
-
-            // 找到比待删除节点大的最小节点, 即待删除节点右子树的最小节点
-            // 用这个节点顶替待删除节点的位置
-            Node successor = minElement(node);
-            successor.right= removeMin(node);
-            successor.left = node.left;
-
-            node.left = node.right = null;
-            return successor;
         }
+
+        if(retNode == null)
+            return null;
+
+        // 维护高度
+        retNode.height = 1 + Math.max(getHeight(retNode.left), getHeight(retNode.right));
+
+        // 计算平衡因子
+        int banlance = getbalanceFactory(retNode);
+
+        // 平衡维护
+        if (banlance > 1 && getbalanceFactory(retNode.left) >= 0) {
+            return rightRotate(retNode);
+        } else if (banlance < -1 && getbalanceFactory(retNode.right) <= 0) {
+            return leftRotate(retNode);
+        } else if (banlance > 1 && getbalanceFactory(retNode.left) < 0) {
+            retNode.left = leftRotate(retNode.left);
+            return rightRotate(retNode);
+        } else  if (banlance < -1 && getbalanceFactory(retNode.right) > 0 ){
+            retNode.right = rightRotate(retNode.right);
+            return leftRotate(retNode);
+        }
+        // 不需要维护平衡的时候将处理后的节点返回
+        return retNode;
     }
 
 

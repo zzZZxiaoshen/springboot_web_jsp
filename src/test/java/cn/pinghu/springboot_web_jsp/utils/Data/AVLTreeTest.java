@@ -26,6 +26,12 @@ public class AVLTreeTest {
 
         System.out.println(avlTree.isBanlanceAvl());
         System.out.println(avlTree.isBST());
+        avlTree.remove(4);
+
+        System.out.println(avlTree.isBanlanceAvl());
+        System.out.println(avlTree.isBST());
+
+        System.out.println(avlTree.toString());
     }
 
     @Test
