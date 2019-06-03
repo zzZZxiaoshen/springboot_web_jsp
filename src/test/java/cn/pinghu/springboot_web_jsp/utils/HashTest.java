@@ -4,8 +4,7 @@ import org.junit.Test;
 
 public class HashTest {
 
-    @Test
-    public void test(){
+    @Test    public void test(){
         Integer num = 45;
         System.out.println(num.hashCode());
         String st = "adadad";
@@ -13,4 +12,9 @@ public class HashTest {
         Double d = 12.0;
         System.out.println(d.hashCode());
     }
+
+    @Test
+    public void test02(){
+    }
+
 }
